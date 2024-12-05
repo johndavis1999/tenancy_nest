@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String   @id @default(uuid()) @map("id") // UUID como identificador único
+  data      Json     @map("data")         // Campo JSON para datos adicionales
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Task {
+  id          String   @id @default(uuid()) @map("id")  // UUID para identificar la tarea
+  title       String   @map("title")  // Título de la tarea
+  description String   @map("description")  // Descripción de la tarea
+  createdAt   DateTime @default(now()) @map("created_at")  // Fecha de creación
+  updatedAt   DateTime @updatedAt @map("updated_at")  // Fecha de actualización
+}
